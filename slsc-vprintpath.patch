@@ -1,0 +1,28 @@
+--- /home/users/hunter/backup/slsc.rc~	Mon Aug 26 17:17:19 1996
++++ src/slsc.rc	Sun Jun 23 12:28:53 2002
+@@ -2,7 +2,7 @@
+ %  The printer command
+ %
+ 
+-set printer "| /usr/local/lib/slsc/vprint -deskjet | lpr"
++set printer "| /usr/lib/slsc/vprint -deskjet | lpr"
+ 
+ % Colors
+ 
+--- /home/users/hunter/backup/vprint.txt~	Mon Aug 26 17:17:19 1996
++++ src/vprint.txt	Sun Jun 23 12:32:10 2002
+@@ -10,12 +10,12 @@
+ 
+ Put something like:
+ 
+-   set printer "| /usr/local/lib/slsc/vprint -deskjet | lpr"
++   set printer "| /usr/lib/slsc/vprint -deskjet | lpr"
+ 
+ in the slsc.rc file.   If you do not have deskjet printer, use something
+ like: 
+ 
+-   set printer "| /usr/local/lib/slsc/vprint 50x80 | lpr"
++   set printer "| /usr/lib/slsc/vprint 50x80 | lpr"
+    
+ where the assumption has been made that the printer has 50 rows and 80
+ columns.
