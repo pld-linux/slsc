@@ -2,15 +2,13 @@ Summary:	spreadsheet based on sc, but with many enhancements
 Summary(pl):	Arkusz kalkulacyjny bazuj±cy na sc, ale z ró¿nymi rozszerzeniami
 Name:		slsc
 Version:	0.2.3
-Release:	7
+Release:	8
 License:	GPL
 Group:		Applications/Spreadsheets
-Group(de):	Applikationen/Arbeitsblätter
-Group(pl):	Aplikacje/Arkusze kalkulacyjne
 Source0:	ftp://space.mit.edu/pub/davis/slsc/%{name}.tar.gz
 Patch0:		%{name}.patch
 Patch1:		%{name}-keymap.patch
-Patch2:     slsc-vprintpath.patch
+Patch2:		%{name}-vprintpath.patch
 BuildRequires:	slang-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
