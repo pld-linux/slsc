@@ -24,7 +24,7 @@ sc is 6.21.
 %build
 %configure
 
-make
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
