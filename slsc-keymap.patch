@@ -1,7 +1,7 @@
-diff -Nru slsc/src/scdokey.c slsc.new/src/scdokey.c
+diff -Naur slsc/src/scdokey.c slsc-p/src/scdokey.c
 --- slsc/src/scdokey.c	Mon Aug 26 17:17:19 1996
-+++ slsc.new/src/scdokey.c	Fri Nov  5 21:50:19 1999
-@@ -709,10 +709,10 @@
++++ slsc-p/src/scdokey.c	Mon Jun 19 11:28:23 2000
+@@ -709,10 +709,14 @@
       }
     
     
@@ -9,22 +9,28 @@ diff -Nru slsc/src/scdokey.c slsc.new/src/scdokey.c
 -   SLkm_define_key ("\033[B", (FVOID_STAR) sc_down_cmd, Sc_Main_Keymap);
 -   SLkm_define_key ("\033[C", (FVOID_STAR) sc_right_cmd, Sc_Main_Keymap);
 -   SLkm_define_key ("\033[D", (FVOID_STAR) sc_left_cmd, Sc_Main_Keymap);
++   if (SLtt_tgetstr("ku"))
 +   SLkm_define_key (SLtt_tgetstr("ku"), (FVOID_STAR) sc_up_cmd, Sc_Main_Keymap);
++   if (SLtt_tgetstr("kd"))
 +   SLkm_define_key (SLtt_tgetstr("kd"), (FVOID_STAR) sc_down_cmd, Sc_Main_Keymap);
++   if (SLtt_tgetstr("kr"))
 +   SLkm_define_key (SLtt_tgetstr("kr"), (FVOID_STAR) sc_right_cmd, Sc_Main_Keymap);
++   if (SLtt_tgetstr("kl"))
 +   SLkm_define_key (SLtt_tgetstr("kl"), (FVOID_STAR) sc_left_cmd, Sc_Main_Keymap);
     SLkm_define_key ("=", (FVOID_STAR) sc_define_cell, Sc_Main_Keymap);
     SLkm_define_key ("<", (FVOID_STAR) sc_left_string, Sc_Main_Keymap);
     SLkm_define_key ("/", (FVOID_STAR) sc_slash_cmd, Sc_Main_Keymap);
-@@ -735,10 +735,10 @@
+@@ -735,10 +739,12 @@
     SLkm_define_key ("^K\033[C", (FVOID_STAR) sc_pageright, Sc_Main_Keymap);
     SLkm_define_key ("^K\033[D", (FVOID_STAR) sc_pageleft, Sc_Main_Keymap);
     SLkm_define_key ("^U", (FVOID_STAR) sc_pageup, Sc_Main_Keymap);
 -   SLkm_define_key ("\033[5~", (FVOID_STAR) sc_pageup, Sc_Main_Keymap);
++   if (SLtt_tgetstr("kP"))
 +   SLkm_define_key (SLtt_tgetstr("kP"), (FVOID_STAR) sc_pageup, Sc_Main_Keymap);
     SLkm_define_key ("^D", (FVOID_STAR) sc_pagedown, Sc_Main_Keymap);
     SLkm_define_key ("@", (FVOID_STAR) sc_eval_cmd, Sc_Main_Keymap);
 -   SLkm_define_key ("\033[6~", (FVOID_STAR) sc_pagedown, Sc_Main_Keymap);
++   if (SLtt_tgetstr("kN"))
 +   SLkm_define_key (SLtt_tgetstr("kN"), (FVOID_STAR) sc_pagedown, Sc_Main_Keymap);
     SLkm_define_key ("^K^B", (FVOID_STAR) sc_mark_cell, Sc_Main_Keymap);
     SLkm_define_key ("^K^P", (FVOID_STAR) sc_paste, Sc_Main_Keymap);
