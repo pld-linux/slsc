@@ -37,8 +37,8 @@ wersji 6.1 sc Roberta Bonda.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/slsc,%{_datadir}/slsc,%{_mandir}/man1}
+
 %{__make} -C src install \
 	SLSC_ROOT=$RPM_BUILD_ROOT%{_datadir}/slsc \
 	SLSC_BIN=$RPM_BUILD_ROOT%{_bindir}
