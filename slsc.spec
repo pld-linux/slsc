@@ -1,7 +1,7 @@
 Summary:	spreadsheet based on sc, but with many enhancements
 Name:		slsc
 Version:	0.2.3
-Release:	3
+Release:	4
 Copyright:	GPL
 Group:		Applications/Spreadsheets
 Source:		ftp://space.mit.edu/pub/davis/slsc/%{name}.tar.gz
