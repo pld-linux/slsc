@@ -2,7 +2,7 @@ Summary:	spreadsheet based on sc, but with many enhancements
 Summary(pl):	Arkusz kalkulacyjny bazuj±cy na sc, ale z ró¿nymi rozszerzeniami
 Name:		slsc
 Version:	0.2.3
-Release:	8
+Release:	9
 License:	GPL
 Group:		Applications/Spreadsheets
 Source0:	ftp://space.mit.edu/pub/davis/slsc/%{name}.tar.gz
@@ -26,7 +26,7 @@ vc, oryginalnie napisanego przez Jamesa Goslinga. Ta wersja bazuje na
 wersji 6.1 sc Roberta Bonda.
 
 %prep
-%setup  -q -n slsc
+%setup -q -n %{name}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p0
@@ -46,14 +46,14 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/slsc,%{_datadir}/slsc,%{_mandir
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/slsc/vprint $RPM_BUILD_ROOT%{_libdir}/slsc
 
-install doc/*.1 $RPM_BUILD_ROOT%{_mandir}/man1/
+install doc/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc README changes.txt
 %attr(755,root,root) %{_bindir}/*
 %dir %{_libdir}/slsc
 %attr(755,root,root) %{_libdir}/slsc/vprint
