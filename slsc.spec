@@ -6,6 +6,7 @@ Release:	8
 License:	GPL
 Group:		Applications/Spreadsheets
 Source0:	ftp://space.mit.edu/pub/davis/slsc/%{name}.tar.gz
+# Source0-md5:	c12c1a0d4f783517965fee6258720014
 Patch0:		%{name}.patch
 Patch1:		%{name}-keymap.patch
 Patch2:		%{name}-vprintpath.patch
