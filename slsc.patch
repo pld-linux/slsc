@@ -1,0 +1,381 @@
+diff -Nru slsc/doc/slsc.1 slsc.new/doc/slsc.1
+--- slsc/doc/slsc.1	Thu Jan  1 01:00:00 1970
++++ slsc.new/doc/slsc.1	Fri Nov  5 19:56:45 1999
+@@ -0,0 +1,67 @@
++.\" Minimal manpage for slsc 
++.\" Copyright (C) 1996-98 Dirk Eddelbuettel <edd@debian.org> 
++.TH SLSC 1 "November 1998" "Debian Project" "Debian GNU/Linux"
++.SH NAME
++slsc \- S-Langauge port of the SC spreadsheet
++.SH SYNOPSIS
++.B slsc 
++[
++.I file
++]
++.SH DESCRIPTION
++.B slsc
++is a spreadsheet program that is based on
++.B sc 
++which uses the SLang terminal library. The main difference is that 
++.B slsc 
++is much easier to use.  
++.SH FURTHER DOCUMENTATION
++.B slsc
++program does not come with any documentation other than the
++.I "on-line help" 
++that can be launched from within
++.B slsc
++by pressing the 
++.I ?
++key, or the 
++.I tutorial
++that can be started as 
++.IR "slsc /usr/lib/slsc/tutorial.sc" .
++If you want to change the keybindings, copy 
++.I /usr/lib/slsc/slsc.rc
++into your home directory,rename it to 
++.I .slscrc 
++and edit it. When 
++. B slsc 
++starts up, it loads 
++.IR /usr/share/slsc/slsc.rc .  
++Then, if 
++.I $HOME/.slscrc
++exists, it loads it as well which allows users to override the global
++settings.  
++.SH FILES
++.I /usr/share/slsc/slsc.rc
++.RS
++The system wide configuration file. 
++.RE
++.I ~/.slsc
++.RS
++User-specific configuration file. 
++.RE
++.I /usr/share/slsc/tutorial.sc
++.RS
++Tutorial on slsc.
++.SH BUGS
++.B slsc
++is no longer supported by an upstream author.
++.SH AUTHOR
++John E. Davis ported 
++.B sc 
++to 
++.B slsc 
++but no longer maintains it.  Previous version of sc were written by James
++Gosling, Mark Weiser, Bruce Israel, Robert Bond and Alan Silverstein.
++.SH "SEE ALSO"
++.BR vprint (1),
++.BR sc (1),
++.BR xspread (1x)
+diff -Nru slsc/doc/vprint.1 slsc.new/doc/vprint.1
+--- slsc/doc/vprint.1	Thu Jan  1 01:00:00 1970
++++ slsc.new/doc/vprint.1	Fri Nov  5 19:56:45 1999
+@@ -0,0 +1,49 @@
++.\" Minimal manpage for vprint
++.\" Copyright 1998 (C) Dirk Eddelbuettel <edd@debian.org> 
++.TH VPRINT 1 "November 1998" "Debian Project" "Debian GNU/Linux"
++.SH NAME
++vprint \- print filter to break long lines
++.SH SYNOPSIS
++.B vprint 
++[
++.I dimensions
++] [
++.I file
++]
++.SH DESCRIPTION
++.B vprint
++is a print filter that permits one to print a file with very long lines by
++continuing a long line onto another page.  It has been written specifically
++to print a spreadsheet.
++
++Currently, 
++.B vprint 
++provides built-in support for the HPdeskjet printers in Landscape mode.
++However, it may be used with any other printer by specifying the number of
++rows and colums.
++.SH EXAMPLES
++.B vprint 
++was written for the 
++.B slsc 
++spreadsheet, but can probably be used with other programs as well. For
++.BR slsc ,
++put something as
++
++   set printer "| vprint -deskjet | lpr"
++
++in the 
++.I slsc.rc 
++file.  If you do not have a deskjet printer, use something like:
++
++   set printer "| vprint 50x80 | lpr"
++
++where the assumption has been made that the printer has 50 rows and 80
++columns.
++.SH AUTHOR
++John E. Davis 
++.SH "DEBIAN GNU/LINUX MAINTAINER"
++Dirk Eddelbuettel <edd@debian.org>
++.SH "SEE ALSO"
++.BR lpr (1),
++.BR slsc (1)
++
+diff -Nru slsc/src/Makefile.in slsc.new/src/Makefile.in
+--- slsc/src/Makefile.in	Fri Nov  5 20:44:30 1999
++++ slsc.new/src/Makefile.in	Fri Nov  5 20:44:45 1999
+@@ -9,7 +9,7 @@
+ #-----------------------------------------------------------------------------
+ # 2. On a few systems, additional libraries are required.
+ #-----------------------------------------------------------------------------
+-MISCLIBS = @TERMCAP@
++#MISCLIBS = @TERMCAP@
+ #MISCLIBS = -lnsl -lsocket                             # Solaris
+ #MISCLIBS = -ltermcap                                  # NeXT
+ 
+@@ -39,8 +39,8 @@
+ # Root directory where slsc files are going to be kept. 
+ # MAKE SURE THAT THE '#'IMMEDIATELY FOLLOWS THE PATH.  THERE CAN BE NO 
+ # WHITESPACE HERE!  You might want to use the second form.
+-SLSC_ROOT = /usr/local/lib/slsc#  <--- Note location of the `#' !!!
+-SLSC_BIN = /usr/local/bin
++SLSC_ROOT = /usr/share/slsc#  <--- Note location of the `#' !!!
++SLSC_BIN = /usr/bin
+ #---------------------------------------------------------------------------
+ # 5. Misc
+ #---------------------------------------------------------------------------
+diff -Nru slsc/src/experres.h slsc.new/src/experres.h
+--- slsc/src/experres.h	Thu Jan  1 01:00:00 1970
++++ slsc.new/src/experres.h	Fri Nov  5 19:56:45 1999
+@@ -0,0 +1,70 @@
++	"FIXED",	K_FIXED,
++	"SUM",	K_SUM,
++	"RSUM",	K_RSUM,
++	"PROD",	K_PROD,
++	"RPROD",	K_RPROD,
++	"AVG",	K_AVG,
++	"RAVG",	K_RAVG,
++	"RSTDDEV",	K_RSTDDEV,
++	"STDDEV",	K_STDDEV,
++	"ACOS",	K_ACOS,
++	"ASIN",	K_ASIN,
++	"ATAN",	K_ATAN,
++	"ATAN2",	K_ATAN2,
++	"CEIL",	K_CEIL,
++	"COS",	K_COS,
++	"EXP",	K_EXP,
++	"FABS",	K_FABS,
++	"FLOOR",	K_FLOOR,
++	"HYPOT",	K_HYPOT,
++	"LN",	K_LN,
++	"LOG",	K_LOG,
++	"PI",	K_PI,
++	"POW",	K_POW,
++	"SIN",	K_SIN,
++	"SQRT",	K_SQRT,
++	"TAN",	K_TAN,
++	"DTR",	K_DTR,
++	"RTD",	K_RTD,
++	"MAX",	K_MAX,
++	"RMAX",	K_RMAX,
++	"MIN",	K_MIN,
++	"RMIN",	K_RMIN,
++	"RND",	K_RND,
++	"PV",	K_PV,
++	"FV",	K_FV,
++	"PMT",	K_PMT,
++	"HOUR",	K_HOUR,
++	"MINUTE",	K_MINUTE,
++	"SECOND",	K_SECOND,
++	"MONTH",	K_MONTH,
++	"DAY",	K_DAY,
++	"YEAR",	K_YEAR,
++	"NOW",	K_NOW,
++	"DATE",	K_DATE,
++	"FMT",	K_FMT,
++	"SUBSTR",	K_SUBSTR,
++	"STON",	K_STON,
++	"EQS",	K_EQS,
++	"EXT",	K_EXT,
++	"NVAL",	K_NVAL,
++	"SVAL",	K_SVAL,
++	"LOOKUP",	K_LOOKUP,
++	"INDEX",	K_INDEX,
++	"STINDEX",	K_STINDEX,
++	"AUTO",	K_AUTO,
++	"AUTOCALC",	K_AUTOCALC,
++	"BYROWS",	K_BYROWS,
++	"BYCOLS",	K_BYCOLS,
++	"BYGRAPH",	K_BYGRAPH,
++	"ITERATIONS",	K_ITERATIONS,
++	"NUMERIC",	K_NUMERIC,
++	"PRESCALE",	K_PRESCALE,
++	"EXTFUN",	K_EXTFUN,
++	"CELLCUR",	K_CELLCUR,
++	"TOPROW",	K_TOPROW,
++	"TBLSTYLE",	K_TBLSTYLE,
++	"TBL",	K_TBL,
++	"LATEX",	K_LATEX,
++	"TEX",	K_TEX,
++	"FRAME",	K_FRAME,
+diff -Nru slsc/src/sc.c slsc.new/src/sc.c
+--- slsc/src/sc.c	Fri Nov  5 20:44:30 1999
++++ slsc.new/src/sc.c	Fri Nov  5 19:56:45 1999
+@@ -870,8 +870,16 @@
+    sc_init_keymaps ();
+    
+    init_slcmd_table ();
+-   SLang_Error_Routine = slang_sc_error;
+-   
++   /* 
++    * Changed from 
++    *    SLang_Error_Routine = slang_sc_error;
++    * to
++    *    SLang_Error_Hook = slang_sc_error;
++    * for use with slang1.
++    *
++    * Dirk Eddelbuettel <edd@debian.org> Nov 7, 1998
++    */
++   SLang_Error_Hook = slang_sc_error;
+    for (i = 0; i < SC_REGION_COLOR; i++)
+      SLtt_set_mono (i, NULL, 0);
+ 
+diff -Nru slsc/src/statres.h slsc.new/src/statres.h
+--- slsc/src/statres.h	Thu Jan  1 01:00:00 1970
++++ slsc.new/src/statres.h	Fri Nov  5 19:56:45 1999
+@@ -0,0 +1,21 @@
++	"FORMAT",	S_FORMAT,
++	"LABEL",	S_LABEL,
++	"LEFTSTRING",	S_LEFTSTRING,
++	"RIGHTSTRING",	S_RIGHTSTRING,
++	"GET",	S_GET,
++	"PUT",	S_PUT,
++	"MERGE",	S_MERGE,
++	"LET",	S_LET,
++	"WRITE",	S_WRITE,
++	"TBL",	S_TBL,
++	"COPY",	S_COPY,
++	"SHOW",	S_SHOW,
++	"ERASE",	S_ERASE,
++	"FILL",	S_FILL,
++	"GOTO",	S_GOTO,
++	"DEFINE",	S_DEFINE,
++	"UNDEFINE",	S_UNDEFINE,
++	"VALUE",	S_VALUE,
++	"MDIR",	S_MDIR,
++	"HIDE",	S_HIDE,
++	"SET",	S_SET,
+diff -Nru slsc/src/y.tab.h slsc.new/src/y.tab.h
+--- slsc/src/y.tab.h	Thu Jan  1 01:00:00 1970
++++ slsc.new/src/y.tab.h	Fri Nov  5 19:56:45 1999
+@@ -0,0 +1,109 @@
++typedef union {
++    int ival;
++    double fval;
++    struct ent_ptr ent;
++    struct enode *enode;
++    char *sval;
++    struct range_s rval;
++} YYSTYPE;
++#define	STRING	257
++#define	NUMBER	258
++#define	FNUMBER	259
++#define	RANGE	260
++#define	VAR	261
++#define	WORD	262
++#define	COL	263
++#define	S_FORMAT	264
++#define	S_LABEL	265
++#define	S_LEFTSTRING	266
++#define	S_RIGHTSTRING	267
++#define	S_GET	268
++#define	S_PUT	269
++#define	S_MERGE	270
++#define	S_LET	271
++#define	S_WRITE	272
++#define	S_TBL	273
++#define	S_COPY	274
++#define	S_SHOW	275
++#define	S_ERASE	276
++#define	S_FILL	277
++#define	S_GOTO	278
++#define	S_DEFINE	279
++#define	S_UNDEFINE	280
++#define	S_VALUE	281
++#define	S_MDIR	282
++#define	S_HIDE	283
++#define	S_SET	284
++#define	K_FIXED	285
++#define	K_SUM	286
++#define	K_RSUM	287
++#define	K_PROD	288
++#define	K_RPROD	289
++#define	K_AVG	290
++#define	K_RAVG	291
++#define	K_RSTDDEV	292
++#define	K_STDDEV	293
++#define	K_ACOS	294
++#define	K_ASIN	295
++#define	K_ATAN	296
++#define	K_ATAN2	297
++#define	K_CEIL	298
++#define	K_COS	299
++#define	K_EXP	300
++#define	K_FABS	301
++#define	K_FLOOR	302
++#define	K_HYPOT	303
++#define	K_LN	304
++#define	K_LOG	305
++#define	K_PI	306
++#define	K_POW	307
++#define	K_SIN	308
++#define	K_SQRT	309
++#define	K_TAN	310
++#define	K_DTR	311
++#define	K_RTD	312
++#define	K_MAX	313
++#define	K_RMAX	314
++#define	K_MIN	315
++#define	K_RMIN	316
++#define	K_RND	317
++#define	K_PV	318
++#define	K_FV	319
++#define	K_PMT	320
++#define	K_HOUR	321
++#define	K_MINUTE	322
++#define	K_SECOND	323
++#define	K_MONTH	324
++#define	K_DAY	325
++#define	K_YEAR	326
++#define	K_NOW	327
++#define	K_DATE	328
++#define	K_FMT	329
++#define	K_SUBSTR	330
++#define	K_STON	331
++#define	K_EQS	332
++#define	K_EXT	333
++#define	K_NVAL	334
++#define	K_SVAL	335
++#define	K_LOOKUP	336
++#define	K_INDEX	337
++#define	K_STINDEX	338
++#define	K_AUTO	339
++#define	K_AUTOCALC	340
++#define	K_BYROWS	341
++#define	K_BYCOLS	342
++#define	K_BYGRAPH	343
++#define	K_ITERATIONS	344
++#define	K_NUMERIC	345
++#define	K_PRESCALE	346
++#define	K_EXTFUN	347
++#define	K_CELLCUR	348
++#define	K_TOPROW	349
++#define	K_TBLSTYLE	350
++#define	K_TBL	351
++#define	K_LATEX	352
++#define	K_TEX	353
++#define	K_FRAME	354
++
++
++extern YYSTYPE yylval;
