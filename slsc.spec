@@ -2,7 +2,7 @@ Summary:	spreadsheet based on sc, but with many enhancements
 Summary(pl):	Arkusz kalkulacyjny bazuj±cy na sc, ale z ró¿nymi rozszerzeniami
 Name:		slsc
 Version:	0.2.3
-Release:	6
+Release:	7
 License:	GPL
 Group:		Applications/Spreadsheets
 Group(de):	Applikationen/Arbeitsblätter
@@ -31,7 +31,7 @@ wersji 6.1 sc Roberta Bonda.
 %patch1 -p1
 
 %build
-%configure
+%configure2_13
 
 %{__make}
 
