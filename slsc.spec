@@ -32,6 +32,9 @@ wersji 6.1 sc Roberta Bonda.
 %patch2 -p0
 
 %build
+# needed with slang in lib64
+export SLANG_LIB_DIR=%{_libdir}
+export SLANG_INCLUDE=/usr/include/slang
 %configure2_13
 
 %{__make}
