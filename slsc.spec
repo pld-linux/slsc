@@ -30,7 +30,7 @@ make
 rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/slsc,%{_datadir}/slsc,%{_mandir}/man1}
-make -C src install \
+%{__make} -C src install \
 	SLSC_ROOT=$RPM_BUILD_ROOT%{_datadir}/slsc \
 	SLSC_BIN=$RPM_BUILD_ROOT%{_bindir}
 
