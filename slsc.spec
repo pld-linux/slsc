@@ -10,6 +10,7 @@ Source0:	ftp://space.mit.edu/pub/davis/slsc/%{name}.tar.gz
 Patch0:		%{name}.patch
 Patch1:		%{name}-keymap.patch
 Patch2:		%{name}-vprintpath.patch
+BuildRequires:	byacc
 BuildRequires:	slang-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
