@@ -7,6 +7,7 @@ Group:		Applications/Spreadsheets
 Source:		ftp://space.mit.edu/pub/davis/slsc/%{name}.tar.gz
 Patch0:		slsc.patch
 Patch1:		slsc-keymap.patch
+BuildRequires:	slang-devel
 Buildroot:	/tmp/%{name}-%{version}-root
 
 %description
