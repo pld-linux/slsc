@@ -10,8 +10,9 @@ Source0:	ftp://space.mit.edu/pub/davis/slsc/%{name}.tar.gz
 Patch0:		%{name}.patch
 Patch1:		%{name}-keymap.patch
 Patch2:		%{name}-vprintpath.patch
+Patch3:		%{name}-slang.patch
 BuildRequires:	bison
-BuildRequires:	slang-devel
+BuildRequires:	slang-devel >= 2.0.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -31,6 +32,7 @@ wersji 6.1 sc Roberta Bonda.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p0
+%patch3 -p1
 
 %build
 # needed with slang in lib64
