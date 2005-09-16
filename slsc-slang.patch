@@ -1,0 +1,110 @@
+diff -urN slsc.org/src/sc.c slsc/src/sc.c
+--- slsc.org/src/sc.c	1996-08-26 17:17:19.000000000 +0200
++++ slsc/src/sc.c	2005-09-16 13:07:13.771357416 +0200
+@@ -600,7 +600,8 @@
+    col = Sc_Col_Width [curcol];
+    while (col-- > 0)
+      {
+-	SLsmg_write_char (SLsmg_char_at () & 0xFF);
++	SLsmg_Char_Type ch;
++	SLsmg_write_char (SLsmg_char_at (&ch) & 0xFF);
+      }
+    SLsmg_normal_video ();
+ 
+@@ -911,8 +912,8 @@
+ 	  }
+ 	sc_update(first_time);
+ 	first_time = 0;
+-	if (SLang_Error || !SLang_input_pending(0)) (void) SLsmg_refresh ();
+-	SLang_Error = 0;
++	if (SLang_get_error() || !SLang_input_pending(0)) (void) SLsmg_refresh ();
++	SLang_set_error(0);
+ 	Sc_Error_Seen = 0;
+ 	sc_dokey ();
+      }				/*  while (inloop) */
+@@ -1100,7 +1101,7 @@
+    (void) SLsmg_vprintf(fmt, ap);
+    va_end(ap);
+    SLang_flush_input ();
+-   if (SLang_Error == 0) SLang_Error = INTRINSIC_ERROR;
++   if (SLang_get_error() == 0) SLang_set_error(INTRINSIC_ERROR);
+ }
+ 
+ void sc_message (char *fmt, ...)
+@@ -1129,7 +1130,7 @@
+      {
+ 	Sc_This_SL_File_Line_Num++;
+ 	(void) SLcmd_execute_string (buf, &Sc_SLCmd_Table);
+-	if (SLang_Error) 
++	if (SLang_get_error()) 
+ 	  {
+ 	     break;
+ 	  }
+@@ -1148,7 +1149,7 @@
+    
+    sprintf (file, "%s%s", Slsc_Root_Dir, "slsc.rc");
+    sc_load_slfile (file);
+-   if (SLang_Error) return;
++   if (SLang_get_error()) return;
+ 
+    if (NULL != (home = getenv ("HOME")))
+      {
+diff -urN slsc.org/src/scdokey.c slsc/src/scdokey.c
+--- slsc.org/src/scdokey.c	1996-08-26 17:17:19.000000000 +0200
++++ slsc/src/scdokey.c	2005-09-16 13:15:39.046543912 +0200
+@@ -479,7 +479,7 @@
+    
+    i = SLang_read_line (Sc_Keymap_RLI);
+    
+-   if ((i >= 0) && !SLang_Error && !SLKeyBoard_Quit)
++   if ((i >= 0) && !SLang_get_error() && !SLKeyBoard_Quit)
+      {
+ 	SLang_rline_save_line (Sc_Keymap_RLI);
+ 	*line = 0;
+@@ -491,7 +491,8 @@
+      }
+    linelim = -1;
+    if (SLKeyBoard_Quit) i = -1;
+-   SLang_Error = SLKeyBoard_Quit = 0;
++   SLKeyBoard_Quit = 0;
++   SLang_set_error(SLKeyBoard_Quit);
+    return i;
+ }
+ 
+@@ -630,7 +631,7 @@
+ static void sc_copy_region (void)
+ {
+    sc_delete_region ();
+-   if (SLang_Error) return;
++   if (SLang_get_error()) return;
+    sc_paste ();
+    sc_message ("Region copied to pastebuffer.");
+ }
+@@ -757,7 +758,8 @@
+    SLang_Key_Type *key;
+    
+    key = SLang_do_key (Sc_Main_Keymap, (int (*)(void)) SLang_getkey);
+-   SLang_Error = SLKeyBoard_Quit = 0;
++   SLKeyBoard_Quit = 0;
++   SLang_set_error(SLKeyBoard_Quit);
+    
+    /* Last_Char = SLang_Last_Key_Char; */
+    sc_clear_message ();
+@@ -1045,7 +1047,7 @@
+    while (1)
+      {
+ 	menu_aborted = 0;
+-	if ((SLang_Error) || SLKeyBoard_Quit) return;
++	if ((SLang_get_error()) || SLKeyBoard_Quit) return;
+ 	
+ 	hlp = NULL;
+ 	n = 0;
+@@ -1095,7 +1097,7 @@
+ 	  {
+ 	     field--;
+ 	  }
+-	else if ((SLang_Error) || SLKeyBoard_Quit) return;
++	else if ((SLang_get_error()) || SLKeyBoard_Quit) return;
+ 	else 
+ 	  {
+ 	     
