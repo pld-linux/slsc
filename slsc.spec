@@ -1,5 +1,5 @@
 Summary:	spreadsheet based on sc, but with many enhancements
-Summary(pl.UTF-8):   Arkusz kalkulacyjny bazujący na sc, ale z różnymi rozszerzeniami
+Summary(pl.UTF-8):	Arkusz kalkulacyjny bazujący na sc, ale z różnymi rozszerzeniami
 Name:		slsc
 Version:	0.2.3
 Release:	9
