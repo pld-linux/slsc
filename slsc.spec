@@ -1,5 +1,5 @@
 Summary:	spreadsheet based on sc, but with many enhancements
-Summary(pl):	Arkusz kalkulacyjny bazuj±cy na sc, ale z ró¿nymi rozszerzeniami
+Summary(pl.UTF-8):   Arkusz kalkulacyjny bazujÄ…cy na sc, ale z rÃ³Å¼nymi rozszerzeniami
 Name:		slsc
 Version:	0.2.3
 Release:	9
@@ -21,9 +21,9 @@ posted several years ago by Mark Weiser as vc, originally by James
 Gosling. The version that I have is based on Robert Bond's sc 6.1. The
 latest version of sc is 6.21.
 
-%description -l pl
-Jest to zmodyfikowana wersja dostêpnego jako public domain arkusza
-kalkulacyjnego sc, wys³anego kilka lat temu przez Marka Weisera jako
+%description -l pl.UTF-8
+Jest to zmodyfikowana wersja dostÄ™pnego jako public domain arkusza
+kalkulacyjnego sc, wysÅ‚anego kilka lat temu przez Marka Weisera jako
 vc, oryginalnie napisanego przez Jamesa Goslinga. Ta wersja bazuje na
 wersji 6.1 sc Roberta Bonda.
 
