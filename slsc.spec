@@ -29,10 +29,10 @@ wersji 6.1 sc Roberta Bonda.
 
 %prep
 %setup -q -n %{name}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p0
-%patch3 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p0
+%patch -P3 -p1
 
 %build
 # needed with slang in lib64
